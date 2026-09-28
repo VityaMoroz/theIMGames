@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMGames — Перезагрузка</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="АВа.png">
+</head>
+<body>
+
+<!-- ===== ШАПКА ===== -->
+<header class="header">
+  <div class="logo">
+    <img src="АВа.png" alt="IMGames">
+    <span>IMGames</span>
+  </div>
+  <nav class="nav">
+    <a href="#hero">Главная</a>
+    <a href="#about">О нас</a>
+    <a href="#streams">Стримы</a>
+    <a href="#poll">Опрос</a>
+    <a href="#gallery">Галерея</a>
+    <a href="#roulette">Рулетка</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+</header>
+
+<!-- ===== HERO ===== -->
+<section id="hero" class="hero" style="background-image: url('1.5.png');">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <img src="лого.png" alt="IMGames" class="hero-logo">
+    <p class="hero-sub">GAMES • MOVIES • STREAMS</p>
+    <h1>ПЕРЕЗАГРУЗКА</h1>
+    <p class="hero-sub">Два друга. Один канал. Скоро.</p>
+    <div class="timer" id="timer">
+      <div class="timer-block"><span id="days">00</span><small>дней</small></div>
+      <div class="timer-block"><span id="hours">00</span><small>часов</small></div>
+      <div class="timer-block"><span id="minutes">00</span><small>минут</small></div>
+      <div class="timer-block"><span id="seconds">00</span><small>секунд</small></div>
+    </div>
+    <a href="#poll" class="btn">Голосуй за первый стрим</a>
+  </div>
+</section>
+
+<!-- ===== О НАС ===== -->
+<section id="about" class="section">
+  <h2>О нас</h2>
+  <div class="about-grid">
+    <div class="about-photo">
+      <img src="Антон 1.png" alt="Антон">
+      <p>Антон</p>
+    </div>
+    <div class="about-text">
+      <p>Мы — <strong>Антон и Витя</strong>. Два друга-геймера за 30. У нас семьи, дети, работа. Но есть одно, что нас объединяет — игры и общение.</p>
+      <p>Мы открываем новые жанры, делимся впечатлениями и делаем это так, как умеем — честно, шумно и по-человечески.</p>
+      <p>Самое главное на нашем канале — <strong>атмосфера, веселье и общение</strong>.</p>
+    </div>
+    <div class="about-photo">
+      <img src="1.png" alt="Витя">
+      <p>Витя</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== СТРИМЫ ===== -->
+<section id="streams" class="section dark">
+  <h2>Стримы</h2>
+  <p class="section-sub">Первый стрим после паузы — совсем скоро.</p>
+  <div class="streams-banner">
+    <img src="МойБанер.png" alt="Оффлайн">
+  </div>
+  <div class="streams-grid">
+    <div class="stream-card">
+      <img src="ТВИЧ.png" alt="Twitch">
+      <h3>Twitch</h3>
+      <a href="https://twitch.tv/theimgames" target="_blank" class="btn-small">Смотреть</a>
+    </div>
+    <div class="stream-card">
+      <img src="Ютуб.png" alt="YouTube">
+      <h3>YouTube</h3>
+      <a href="https://youtube.com" target="_blank" class="btn-small">Смотреть</a>
+    </div>
+    <div class="stream-card">
+      <img src="ВК.png" alt="VK">
+      <h3>VK Видео</h3>
+      <a href="https://live.vkvideo.ru/vityan_moroz" target="_blank" class="btn-small">Смотреть</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ОПРОС ===== -->
+<section id="poll" class="section">
+  <h2>Что дальше — выбираешь ты!</h2>
+  <p class="section-sub">Проголосуй за формат первого стрима.</p>
+  <div class="poll-grid">
+    <button class="poll-btn" data-vote="serial">
+      <img src="Кино1.png" alt="">
+      <span>📺 Сериал</span>
+    </button>
+    <button class="poll-btn" data-vote="kino">
+      <img src="Кино1.png" alt="">
+      <span>🎬 Кино</span>
+    </button>
+    <button class="poll-btn" data-vote="talk">
+      <img src="Мемасы.png" alt="">
+      <span>🗣 Поговорим, посидим</span>
+    </button>
+    <button class="poll-btn" data-vote="dota">
+      <img src="Рулетка.png" alt="">
+      <span>🎮 Дота 2</span>
+    </button>
+  </div>
+  <div class="poll-results" id="pollResults"></div>
+</section>
+
+<!-- ===== ГАЛЕРЕЯ ===== -->
+<section id="gallery" class="section dark">
+  <h2>Галерея</h2>
+  <p class="section-sub">Наши герои. Наш стиль. Наша игра.</p>
+  <div class="gallery-grid">
+    <img src="Антон 1.png" alt="">
+    <img src="Антон 2.png" alt="">
+    <img src="Антон 3.png" alt="">
+    <img src="Антон 4.png" alt="">
+    <img src="Антон 5.png" alt="">
+    <img src="Антон 6.png" alt="">
+    <img src="Антон 7.png" alt="">
+    <img src="Антон 8.png" alt="">
+    <img src="Антон 9.png" alt="">
+    <img src="Антон 10.png" alt="">
+    <img src="Антон 11.png" alt="">
+    <img src="Антон 12.png" alt="">
+    <img src="1.png" alt="">
+    <img src="2.png" alt="">
+    <img src="3.png" alt="">
+    <img src="4.png" alt="">
+    <img src="5.png" alt="">
+    <img src="6.png" alt="">
+    <img src="8.png" alt="">
+    <img src="9.png" alt="">
+    <img src="10.png" alt="">
+    <img src="11.png" alt="">
+    <img src="12.png" alt="">
+    <img src="13.png" alt="">
+  </div>
+</section>
+
+<!-- ===== РУЛЕТКА ===== -->
+<section id="roulette" class="section">
+  <h2>Крутим рулетку</h2>
+  <div class="roulette-banner">
+    <img src="Рулетка.png" alt="Рулетка">
+  </div>
+  <div class="roulette-box">
+    <div class="roulette-wheel" id="wheel">🎲</div>
+    <button class="btn" id="spinBtn">Крутить</button>
+    <p id="rouletteResult"></p>
+  </div>
+</section>
+
+<!-- ===== НАШИ ПК ===== -->
+<section id="pc" class="section dark">
+  <h2>Наши ПК</h2>
+  <img src="Наши ПК.png" alt="Наши ПК" class="pc-img">
+</section>
+
+<!-- ===== КОНТАКТЫ ===== -->
+<section id="contacts" class="section">
+  <h2>Контакты</h2>
+  <img src="Контакты.png" alt="Контакты" class="contacts-banner">
+  <div class="contacts-grid">
+    <a href="https://t.me/theimgames" target="_blank"><img src="ТГ.png" alt="Telegram"></a>
+    <a href="https://vk.com/theimgames" target="_blank"><img src="ВК.png" alt="VK"></a>
+    <a href="https://twitch.tv/theimgames" target="_blank"><img src="ТВИЧ.png" alt="Twitch"></a>
+    <a href="https://youtube.com" target="_blank"><img src="Ютуб.png" alt="YouTube"></a>
+  </div>
+  <div class="donate-block">
+    <img src="Донат.png" alt="Донат" class="donate-banner">
+    <a href="#" class="btn-donate">Поддержать</a>
+  </div>
+</section>
+
+<!-- ===== ПОДВАЛ ===== -->
+<footer class="footer">
+  <img src="АВа.png" alt="IMGames" class="footer-logo">
+  <p>© IMGames, 2026. Two friends. One passion.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
