@@ -54,4 +54,64 @@ function renderResults() {
     const percent = total > 0 ? Math.round((votes[key] / total) * 100) : 0;
     html += `
       <div class="poll-bar">
-        <div class="
+        <div class="poll-bar-fill" style="width: ${percent}%"></div>
+        <div class="poll-bar-label">${labels[key]} — ${votes[key]} голосов (${percent}%)</div>
+      </div>
+    `;
+  }
+  container.innerHTML = html;
+}
+
+// ===== СВОРАЧИВАЕМАЯ ГАЛЕРЕЯ =====
+const galleryToggle = document.getElementById('galleryToggle');
+const galleryCollapse = document.getElementById('galleryCollapse');
+
+if (galleryToggle && galleryCollapse) {
+  galleryToggle.addEventListener('click', () => {
+    galleryToggle.classList.toggle('open');
+    galleryCollapse.classList.toggle('open');
+    
+    const text = galleryToggle.querySelector('.toggle-text');
+    if (galleryCollapse.classList.contains('open')) {
+      text.textContent = 'Скрыть галерею';
+    } else {
+      text.textContent = 'Показать галерею';
+    }
+  });
+}
+
+// ===== МОДАЛЬНЫЕ ОКНА =====
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.addEventListener('click', () => {
+    const modalId = 'modal-' + panel.dataset.modal;
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.add('active');
+  });
+});
+
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.modal').classList.remove('active');
+  });
+});
+
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+  }
+});
+
+// ===== ПЛАВНЫЙ СКРОЛЛ =====
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
