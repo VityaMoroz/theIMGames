@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMGames — Прямой эфир</title>
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png">
+</head>
+<body>
+
+<button class="scroll-top" id="scrollTop" aria-label="Наверх">▲</button>
+
+<!-- ШАПКА -->
+<header class="header">
+  <div class="logo">
+    <a href="index.html" style="display: flex; align-items: center; gap: 15px;">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="logo-icon">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/ChatGPT%20Image%209%20сент.%202026%20г.%2C%2014_08_56.png" alt="the IMGames" class="logo-text">
+    </a>
+  </div>
+  
+  <div class="header-status" id="headerStatus">
+    <span class="status-dot offline" id="statusDot"></span>
+    <span class="status-text" id="statusText">ОФФЛАЙН</span>
+    <span class="status-divider">|</span>
+    <span class="followers-icon">👥</span>
+    <span class="followers-count" id="followersCount">12 406</span>
+  </div>
+  
+  <nav class="nav">
+    <a href="index.html">Главная</a>
+    <a href="index.html#poll">Опрос</a>
+    <a href="live.html" class="live-link">Стрим</a>
+    <a href="index.html#videos">Трансляции</a>
+    <a href="index.html#gallery">Галерея</a>
+    <a href="index.html#panels">Разделы</a>
+  </nav>
+</header>
+
+<!-- LIVE-СЕКЦИЯ -->
+<section class="live-section">
+  <h1 class="live-title">ПРЯМОЙ ЭФИР</h1>
+  <p class="section-sub" id="liveSubtitle">Добро пожаловать на наш стрим!</p>
+  
+  <div class="live-container">
+    <div class="live-player">
+      <iframe 
+        src="https://player.twitch.tv/?channel=theimgames&parent=vityamoroz.github.io&muted=false&autoplay=true" 
+        frameborder="0" 
+        allowfullscreen>
+      </iframe>
+    </div>
+    
+    <div class="live-chat">
+      <iframe 
+        src="https://www.twitch.tv/embed/theimgames/chat?parent=vityamoroz.github.io&darkpopout" 
+        frameborder="0">
+      </iframe>
+    </div>
+  </div>
+  
+  <div class="live-actions">
+    <a href="https://twitch.tv/theimgames" target="_blank" class="btn">Открыть на Twitch</a>
+    <a href="index.html" class="btn btn-outline">Вернуться на главную</a>
+  </div>
+</section>
+
+<!-- ПОДВАЛ -->
+<footer class="footer">
+  <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="footer-logo">
+  <p>© IMGames, 2026. Two friends. One passion.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
