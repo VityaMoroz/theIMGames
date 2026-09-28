@@ -9,15 +9,28 @@
 </head>
 <body>
 
+<!-- Кнопка "Наверх" -->
+<button class="scroll-top" id="scrollTop" aria-label="Наверх">▲</button>
+
 <!-- ===== ШАПКА ===== -->
 <header class="header">
   <div class="logo">
     <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="logo-icon">
     <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/ChatGPT%20Image%209%20сент.%202026%20г.%2C%2014_08_56.png" alt="the IMGames" class="logo-text">
   </div>
+  
+  <div class="header-status" id="headerStatus">
+    <span class="status-dot offline" id="statusDot"></span>
+    <span class="status-text" id="statusText">ОФФЛАЙН</span>
+    <span class="status-divider">|</span>
+    <span class="followers-icon">👥</span>
+    <span class="followers-count" id="followersCount">12 406</span>
+  </div>
+  
   <nav class="nav">
     <a href="#hero">Главная</a>
     <a href="#poll">Опрос</a>
+    <a href="live.html" class="live-link">Стрим</a>
     <a href="#videos">Трансляции</a>
     <a href="#gallery">Галерея</a>
     <a href="#panels">Разделы</a>
@@ -43,8 +56,8 @@
   </div>
 </section>
 
-<!-- ===== ОПРОС (Google Форма) ===== -->
-<section id="poll" class="section">
+<!-- ===== ОПРОС ===== -->
+<section id="poll" class="section animate-on-scroll">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Дрон.png" alt="" class="decor decor-poll">
   <h2>Что дальше — выбираешь ты!</h2>
   <p class="section-sub">Проголосуй за формат первого стрима.</p>
@@ -59,35 +72,23 @@
   </div>
 </section>
 
-<!-- ===== ПРОШЛЫЕ ТРАНСЛЯЦИИ (YouTube) ===== -->
-<section id="videos" class="section dark">
+<!-- ===== ПРОШЛЫЕ ТРАНСЛЯЦИИ ===== -->
+<section id="videos" class="section dark animate-on-scroll">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Кино1.png" alt="" class="decor decor-videos">
   <h2>Прошлые трансляции</h2>
   <p class="section-sub">Лучшие моменты наших стримов.</p>
   <div class="videos-grid">
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/vKFI_IAaX5A" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/hgOeYL7oX9E" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/-mrP87vFg08" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/43ZoVT2mc3o" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/9BGMOrfxWuo" frameborder="0" allowfullscreen></iframe>
-    </div>
-    <div class="video-item">
-      <iframe src="https://www.youtube.com/embed/ou-JVsnLAGQ" frameborder="0" allowfullscreen></iframe>
-    </div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/vKFI_IAaX5A" frameborder="0" allowfullscreen></iframe></div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/hgOeYL7oX9E" frameborder="0" allowfullscreen></iframe></div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/-mrP87vFg08" frameborder="0" allowfullscreen></iframe></div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/43ZoVT2mc3o" frameborder="0" allowfullscreen></iframe></div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/9BGMOrfxWuo" frameborder="0" allowfullscreen></iframe></div>
+    <div class="video-item"><iframe src="https://www.youtube.com/embed/ou-JVsnLAGQ" frameborder="0" allowfullscreen></iframe></div>
   </div>
 </section>
 
-<!-- ===== ГАЛЕРЕЯ (сворачиваемая) ===== -->
-<section id="gallery" class="section">
+<!-- ===== ГАЛЕРЕЯ ===== -->
+<section id="gallery" class="section animate-on-scroll">
   <h2>Галерея</h2>
   <p class="section-sub">Наши герои. Наш стиль. Наша игра.</p>
   <div class="gallery-toggle-wrap">
@@ -114,7 +115,7 @@
 </section>
 
 <!-- ===== ПАНЕЛИ ===== -->
-<section id="panels" class="section dark">
+<section id="panels" class="section dark animate-on-scroll">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Злодей.png" alt="" class="decor decor-panels">
   <h2>Наши разделы</h2>
   <p class="section-sub">Нажми на панель — узнаешь подробности.</p>
