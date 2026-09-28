@@ -370,4 +370,46 @@ a { color: inherit; text-decoration: none; }
 .modal-close:hover { color: #fff; transform: scale(1.2); }
 
 .modal-content .contacts-grid { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 15px; }
-.modal-content
+.modal-content .contacts-grid img { height: 60px; border-radius: 50%; transition: 0.3s; }
+.modal-content .contacts-grid img:hover { transform: scale(1.15); }
+
+/* ПОДВАЛ */
+.footer { 
+  text-align: center; 
+  padding: 30px; 
+  background: rgba(5,5,10,0.95); 
+  border-top: 1px solid rgba(168,85,247,0.3); 
+  position: relative; 
+  z-index: 2; 
+}
+.footer-logo { height: 60px; margin-bottom: 12px; }
+.footer p { opacity: 0.6; font-size: 13px; }
+
+/* АДАПТИВ */
+@media (max-width: 900px) {
+  .panels-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .header { padding: 10px 15px; flex-direction: column; gap: 10px; }
+  .logo-icon { height: 40px; }
+  .logo-text { height: 25px; }
+  .nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .nav a { font-size: 12px; }
+  .hero { padding: 80px 15px 60px; }
+  .hero-bg { object-position: center 20%; }
+  .hero h1 { font-size: 34px; letter-spacing: 4px; }
+  .hero-sub { font-size: 13px; }
+  .timer-block { padding: 10px 14px; min-width: 65px; }
+  .timer-block span { font-size: 22px; }
+  .timer-block small { font-size: 10px; }
+  .section { padding: 50px 18px; }
+  .section h2 { font-size: 24px; }
+  .modal-content { padding: 25px 18px; }
+  .decor { display: none; }
+  .panels-grid { grid-template-columns: 1fr; }
+  .panel img { height: 140px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .poll-icon { width: 40px; height: 40px; min-width: 40px; min-height: 40px; max-width: 40px; max-height: 40px; }
+  .poll-btn { min-height: 130px; padding: 18px 12px; }
+}
