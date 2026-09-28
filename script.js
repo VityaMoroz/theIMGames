@@ -6,7 +6,7 @@ function updateTimer() {
   const diff = targetDate - now;
 
   if (diff < 0) {
-    document.getElementById('timer').innerHTML = '<p style="font-size:24px;">Стрим уже начался! 🎮</p>';
+    document.getElementById('timer').innerHTML = '<p style="font-size:22px;">Стрим уже начался! 🎮</p>';
     return;
   }
 
@@ -49,51 +49,9 @@ function renderResults() {
   const container = document.getElementById('pollResults');
   if (total === 0) { container.innerHTML = ''; return; }
 
-  let html = '<h3>Результаты:</h3>';
+  let html = '<h3 style="margin-bottom:15px;font-size:20px;">Результаты:</h3>';
   for (const key in votes) {
     const percent = total > 0 ? Math.round((votes[key] / total) * 100) : 0;
     html += `
       <div class="poll-bar">
-        <div class="poll-bar-fill" style="width: ${percent}%"></div>
-        <div class="poll-bar-label">${labels[key]} — ${votes[key]} голосов (${percent}%)</div>
-      </div>
-    `;
-  }
-  container.innerHTML = html;
-}
-
-// ===== МОДАЛЬНЫЕ ОКНА =====
-document.querySelectorAll('.panel').forEach(panel => {
-  panel.addEventListener('click', () => {
-    const modalId = 'modal-' + panel.dataset.modal;
-    const modal = document.getElementById(modalId);
-    if (modal) modal.classList.add('active');
-  });
-});
-
-document.querySelectorAll('[data-close]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.closest('.modal').classList.remove('active');
-  });
-});
-
-document.querySelectorAll('.modal').forEach(modal => {
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.classList.remove('active');
-  });
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
-  }
-});
-
-// ===== ПЛАВНЫЙ СКРОЛЛ =====
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
+        <div class="
