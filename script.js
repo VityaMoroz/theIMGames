@@ -23,45 +23,6 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-// ===== ОПРОС =====
-const votes = { serial: 0, kino: 0, talk: 0, dota: 0 };
-const labels = {
-  serial: '📺 Сериал',
-  kino: '🎬 Кино',
-  talk: '🗣 Поговорим, посидим',
-  dota: '🎮 Дота 2'
-};
-let hasVoted = false;
-
-document.querySelectorAll('.poll-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    if (hasVoted) { alert('Ты уже голосовал!'); return; }
-    const choice = btn.dataset.vote;
-    votes[choice]++;
-    hasVoted = true;
-    btn.classList.add('voted');
-    renderResults();
-  });
-});
-
-function renderResults() {
-  const total = Object.values(votes).reduce((a, b) => a + b, 0);
-  const container = document.getElementById('pollResults');
-  if (total === 0) { container.innerHTML = ''; return; }
-
-  let html = '<h3 style="margin-bottom:15px;font-size:20px;">Результаты:</h3>';
-  for (const key in votes) {
-    const percent = total > 0 ? Math.round((votes[key] / total) * 100) : 0;
-    html += `
-      <div class="poll-bar">
-        <div class="poll-bar-fill" style="width: ${percent}%"></div>
-        <div class="poll-bar-label">${labels[key]} — ${votes[key]} голосов (${percent}%)</div>
-      </div>
-    `;
-  }
-  container.innerHTML = html;
-}
-
 // ===== СВОРАЧИВАЕМАЯ ГАЛЕРЕЯ =====
 const galleryToggle = document.getElementById('galleryToggle');
 const galleryCollapse = document.getElementById('galleryCollapse');
