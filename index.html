@@ -12,8 +12,8 @@
 <!-- ===== ШАПКА ===== -->
 <header class="header">
   <div class="logo">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames">
-    <span>IMGames</span>
+    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="logo-icon">
+    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/ChatGPT%20Image%209%20сент.%202026%20г.%2C%2014_08_56.png" alt="the IMGames" class="logo-text">
   </div>
   <nav class="nav">
     <a href="#hero">Главная</a>
@@ -24,13 +24,11 @@
 </header>
 
 <!-- ===== HERO ===== -->
-<section id="hero" class="hero" style="background-image: url('https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.5.png');">
+<section id="hero" class="hero" style="background-image: url('https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.2.png');">
   <div class="hero-overlay"></div>
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Военный.png" alt="" class="decor decor-hero-left">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Злодей.png" alt="" class="decor decor-hero-right">
   <div class="hero-content">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/ChatGPT%20Image%209%20сент.%202026%20г.%2C%2014_08_56.png" alt="the IMGAMES" class="hero-logo">
-    <p class="hero-sub">GAMES • MOVIES • STREAMS</p>
     <h1>ПЕРЕЗАГРУЗКА</h1>
     <p class="hero-sub">Два друга. Один канал. Скоро.</p>
     <div class="timer" id="timer">
@@ -69,28 +67,36 @@
   <div class="poll-results" id="pollResults"></div>
 </section>
 
-<!-- ===== ГАЛЕРЕЯ ===== -->
+<!-- ===== ГАЛЕРЕЯ (сворачиваемая) ===== -->
 <section id="gallery" class="section dark">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Кино1.png" alt="" class="decor decor-gallery">
   <h2>Галерея</h2>
   <p class="section-sub">Наши герои. Наш стиль. Наша игра.</p>
-  <div class="gallery-grid">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%201.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%202.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%203.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%204.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%205.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%206.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%207.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%208.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/2.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/3.png" alt="">
-    <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/4.png" alt="">
+  <div class="gallery-toggle-wrap">
+    <button class="gallery-toggle" id="galleryToggle">
+      <span class="toggle-text">Показать галерею</span>
+      <span class="toggle-arrow">▼</span>
+    </button>
+  </div>
+  <div class="gallery-collapse" id="galleryCollapse">
+    <div class="gallery-grid">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%201.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%202.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%203.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%204.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%205.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%206.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%207.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Антон%208.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/2.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/3.png" alt="">
+      <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/4.png" alt="">
+    </div>
   </div>
 </section>
 
-<!-- ===== ПАНЕЛИ (как на Twitch) ===== -->
+<!-- ===== ПАНЕЛИ (3 колонки) ===== -->
 <section id="panels" class="section">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Злодей.png" alt="" class="decor decor-panels">
   <h2>Наши разделы</h2>
@@ -132,7 +138,6 @@
 
 <!-- ===== МОДАЛЬНЫЕ ОКНА ===== -->
 
-<!-- О НАС -->
 <div class="modal" id="modal-about">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -146,7 +151,6 @@
   </div>
 </div>
 
-<!-- НАШИ ПК -->
 <div class="modal" id="modal-pc">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -173,7 +177,6 @@
   </div>
 </div>
 
-<!-- РУЛЕТКА -->
 <div class="modal" id="modal-roulette">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -187,7 +190,6 @@
   </div>
 </div>
 
-<!-- ДОНАТ -->
 <div class="modal" id="modal-donate">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -198,7 +200,6 @@
   </div>
 </div>
 
-<!-- МЕМАСЫ -->
 <div class="modal" id="modal-memes">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -209,7 +210,6 @@
   </div>
 </div>
 
-<!-- КОНТАКТЫ -->
 <div class="modal" id="modal-contacts">
   <div class="modal-content">
     <button class="modal-close" data-close>×</button>
@@ -223,7 +223,7 @@
   </div>
 </div>
 
-<!-- ПОДВАЛ -->
+<!-- ===== ПОДВАЛ ===== -->
 <footer class="footer">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="footer-logo">
   <p>© IMGames, 2026. Two friends. One passion.</p>
