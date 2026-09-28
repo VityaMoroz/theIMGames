@@ -62,28 +62,31 @@ function renderResults() {
   container.innerHTML = html;
 }
 
-// ===== РУЛЕТКА =====
-const rouletteResults = [
-  '🎮 Сыграть в Доту!',
-  '📺 Посмотреть сериал!',
-  '🎬 Устроить киновечер!',
-  '🗣 Просто поболтать!',
-  '🔥 Что-то эпичное!',
-  '😂 Ржака на весь вечер!'
-];
+// ===== МОДАЛЬНЫЕ ОКНА =====
+document.querySelectorAll('.panel').forEach(panel => {
+  panel.addEventListener('click', () => {
+    const modalId = 'modal-' + panel.dataset.modal;
+    const modal = document.getElementById(modalId);
+    if (modal) modal.classList.add('active');
+  });
+});
 
-document.getElementById('spinBtn').addEventListener('click', () => {
-  const wheel = document.getElementById('wheel');
-  const result = document.getElementById('rouletteResult');
-  wheel.classList.add('spinning');
-  result.textContent = 'Крутим...';
+document.querySelectorAll('[data-close]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.modal').classList.remove('active');
+  });
+});
 
-  setTimeout(() => {
-    wheel.classList.remove('spinning');
-    const random = rouletteResults[Math.floor(Math.random() * rouletteResults.length)];
-    wheel.textContent = '🎯';
-    result.textContent = random;
-  }, 1500);
+document.querySelectorAll('.modal').forEach(modal => {
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.classList.remove('active');
+  });
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active'));
+  }
 });
 
 // ===== ПЛАВНЫЙ СКРОЛЛ =====
