@@ -42,15 +42,29 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-size: cover;
-  background-position: center top;
   padding: 100px 20px 60px;
   overflow: hidden;
+  background-color: #0a0a0f;
+  background-image: url('https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.2.png');
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 50%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(10,10,15,0.7) 50%, #0a0a0f 100%);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-overlay {
   position: absolute; inset: 0;
-  background: rgba(5,5,10,0.7);
+  background: rgba(5,5,10,0.4);
+  z-index: 1;
 }
 
 .hero-content { position: relative; z-index: 5; max-width: 800px; margin: 0 auto; }
@@ -152,7 +166,7 @@ a { color: inherit; text-decoration: none; }
   background: rgba(24,24,42,0.9);
   border: 2px solid rgba(168,85,247,0.3);
   border-radius: 15px;
-  padding: 20px 15px;
+  padding: 25px 15px;
   cursor: pointer;
   transition: 0.3s;
   color: #e8e8e8;
@@ -161,11 +175,23 @@ a { color: inherit; text-decoration: none; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 .poll-btn:hover { border-color: #a855f7; transform: translateY(-3px); box-shadow: 0 0 25px rgba(168,85,247,0.5); }
 .poll-btn.voted { border-color: #a855f7; background: rgba(168,85,247,0.2); box-shadow: 0 0 35px rgba(168,85,247,0.6); }
-.poll-emoji { font-size: 36px; }
+
+.poll-icon {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(168, 85, 247, 0.7));
+  transition: 0.3s;
+}
+
+.poll-btn:hover .poll-icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 20px rgba(168, 85, 247, 1));
+}
 
 .poll-results { text-align: center; font-size: 16px; position: relative; z-index: 2; max-width: 700px; margin: 0 auto; }
 .poll-bar { background: rgba(24,24,42,0.9); border-radius: 8px; overflow: hidden; margin: 6px 0 15px; height: 30px; position: relative; }
@@ -364,4 +390,5 @@ a { color: inherit; text-decoration: none; }
   .panels-grid { grid-template-columns: 1fr; }
   .panel img { height: 140px; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .poll-icon { width: 44px; height: 44px; }
 }
