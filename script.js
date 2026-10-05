@@ -43,7 +43,6 @@ async function updateTwitchStatus() {
     
     updateStatusUI(data.followers, data.isLive);
   } catch (error) {
-    // Fallback: если API не отвечает
     updateStatusUI(FALLBACK_FOLLOWERS, false);
   }
 }
@@ -65,7 +64,97 @@ function updateStatusUI(followers, isLive) {
 }
 
 updateTwitchStatus();
-setInterval(updateTwitchStatus, 60000); // обновляем каждую минуту
+setInterval(updateTwitchStatus, 60000);
+
+// ===== КАСТОМНЫЙ АУДИО-ПЛЕЕР =====
+const cpAudio = document.getElementById('cpAudio');
+const cpPlay = document.getElementById('cpPlay');
+const cpProgress = document.getElementById('cpProgress');
+const cpFill = document.getElementById('cpFill');
+const cpThumb = document.getElementById('cpThumb');
+const cpCurrent = document.getElementById('cpCurrent');
+const cpDuration = document.getElementById('cpDuration');
+const cpVol = document.getElementById('cpVol');
+const cpVolBtn = document.getElementById('cpVolBtn');
+
+function cpFormatTime(sec) {
+  if (isNaN(sec)) return '0:00';
+  const m = Math.floor(sec / 60);
+  const s = Math.floor(sec % 60);
+  return m + ':' + String(s).padStart(2, '0');
+}
+
+if (cpAudio && cpPlay) {
+  cpPlay.addEventListener('click', () => {
+    if (cpAudio.paused) {
+      cpAudio.play();
+    } else {
+      cpAudio.pause();
+    }
+  });
+
+  cpAudio.addEventListener('play', () => cpPlay.classList.add('playing'));
+  cpAudio.addEventListener('pause', () => cpPlay.classList.remove('playing'));
+
+  cpAudio.addEventListener('loadedmetadata', () => {
+    cpDuration.textContent = cpFormatTime(cpAudio.duration);
+  });
+
+  cpAudio.addEventListener('timeupdate', () => {
+    if (!cpAudio.duration) return;
+    const pct = (cpAudio.currentTime / cpAudio.duration) * 100;
+    cpFill.style.width = pct + '%';
+    cpThumb.style.left = pct + '%';
+    cpCurrent.textContent = cpFormatTime(cpAudio.currentTime);
+  });
+
+  let seeking = false;
+
+  function seekFromEvent(e) {
+    const rect = cpProgress.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    let pct = (clientX - rect.left) / rect.width;
+    pct = Math.max(0, Math.min(1, pct));
+    cpAudio.currentTime = pct * cpAudio.duration;
+  }
+
+  cpProgress.addEventListener('mousedown', (e) => {
+    seeking = true;
+    seekFromEvent(e);
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (seeking) seekFromEvent(e);
+  });
+  document.addEventListener('mouseup', () => seeking = false);
+
+  cpProgress.addEventListener('touchstart', (e) => {
+    seeking = true;
+    seekFromEvent(e);
+  }, { passive: true });
+  document.addEventListener('touchmove', (e) => {
+    if (seeking) seekFromEvent(e);
+  }, { passive: true });
+  document.addEventListener('touchend', () => seeking = false);
+
+  cpVol.addEventListener('input', () => {
+    cpAudio.volume = cpVol.value;
+    cpVolBtn.classList.toggle('muted', cpAudio.volume == 0);
+  });
+
+  let lastVol = 1;
+  cpVolBtn.addEventListener('click', () => {
+    if (cpAudio.volume > 0) {
+      lastVol = cpAudio.volume;
+      cpAudio.volume = 0;
+      cpVol.value = 0;
+      cpVolBtn.classList.add('muted');
+    } else {
+      cpAudio.volume = lastVol || 1;
+      cpVol.value = cpAudio.volume;
+      cpVolBtn.classList.remove('muted');
+    }
+  });
+}
 
 // ===== СВОРАЧИВАЕМАЯ ГАЛЕРЕЯ =====
 const galleryToggle = document.getElementById('galleryToggle');
