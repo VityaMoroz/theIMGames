@@ -22,7 +22,7 @@
     <span class="status-text" id="statusText">ОФФЛАЙН</span>
     <span class="status-divider">|</span>
     <span class="followers-icon">👥</span>
-    <span class="followers-count" id="followersCount">12 406</span>
+    <span class="followers-count" id="followersCount">12 408</span>
   </div>
   
   <nav class="nav">
@@ -34,6 +34,9 @@
     <a href="#panels">Разделы</a>
   </nav>
 </header>
+
+<!-- ЧЁРНАЯ ПОЛОСА ПОД ШАПКОЙ -->
+<div class="header-spacer"></div>
 
 <section id="hero" class="hero">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/1.2.png" alt="" class="hero-bg">
@@ -50,6 +53,7 @@
       <div class="timer-block"><span id="seconds">00</span><small>секунд</small></div>
     </div>
 
+    <!-- ПЛЕЕР С ПЛЕЙЛИСТОМ -->
     <div class="hero-track">
       <div class="custom-player" id="audioPlayer">
         <button class="cp-play" id="cpPlay" aria-label="Play">
@@ -59,7 +63,7 @@
 
         <div class="cp-body">
           <div class="cp-info">
-            <span class="cp-title">We the Real Ones</span>
+            <span class="cp-title" id="cpTitle">We the Real Ones</span>
             <span class="cp-artist">the IMGames</span>
           </div>
 
@@ -73,6 +77,15 @@
           </div>
         </div>
 
+        <div class="cp-controls">
+          <button class="cp-prev" id="cpPrev" aria-label="Previous">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+          <button class="cp-next" id="cpNext" aria-label="Next">
+            <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M16 6h2v12h-2zM6 18l8.5-6L6 6z"/></svg>
+          </button>
+        </div>
+
         <div class="cp-volume">
           <button class="cp-vol-btn" id="cpVolBtn" aria-label="Mute">
             <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
@@ -80,7 +93,7 @@
           <input type="range" class="cp-vol-slider" id="cpVol" min="0" max="1" step="0.01" value="1">
         </div>
 
-        <audio id="cpAudio" src="https://raw.githubusercontent.com/VityaMoroz/theIMGames/main/the%20IMGames%20-%20We%20the%20Real%20Ones.mp3" preload="metadata"></audio>
+        <audio id="cpAudio" preload="metadata"></audio>
       </div>
     </div>
 
