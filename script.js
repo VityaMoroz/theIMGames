@@ -31,16 +31,15 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-// ===== TWITCH API (счётчик + статус) =====
+// ===== TWITCH API =====
 const API_URL = 'https://imgames-api.vercel.app/api/followers';
-const FALLBACK_FOLLOWERS = 12406;
+const FALLBACK_FOLLOWERS = 12408;
 
 async function updateTwitchStatus() {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error('API error');
     const data = await response.json();
-    
     updateStatusUI(data.followers, data.isLive);
   } catch (error) {
     updateStatusUI(FALLBACK_FOLLOWERS, false);
@@ -52,106 +51,113 @@ function updateStatusUI(followers, isLive) {
   const text = document.getElementById('statusText');
   const count = document.getElementById('followersCount');
   
-  if (dot) {
-    dot.className = 'status-dot ' + (isLive ? 'online' : 'offline');
-  }
-  if (text) {
-    text.textContent = isLive ? 'В ЭФИРЕ' : 'ОФФЛАЙН';
-  }
-  if (count) {
-    count.textContent = followers.toLocaleString('ru-RU');
-  }
+  if (dot) dot.className = 'status-dot ' + (isLive ? 'online' : 'offline');
+  if (text) text.textContent = isLive ? 'В ЭФИРЕ' : 'ОФФЛАЙН';
+  if (count) count.textContent = followers.toLocaleString('ru-RU');
 }
 
 updateTwitchStatus();
 setInterval(updateTwitchStatus, 60000);
 
-// ===== КАСТОМНЫЙ АУДИО-ПЛЕЕР =====
-const cpAudio = document.getElementById('cpAudio');
-const cpPlay = document.getElementById('cpPlay');
-const cpProgress = document.getElementById('cpProgress');
-const cpFill = document.getElementById('cpFill');
-const cpThumb = document.getElementById('cpThumb');
-const cpCurrent = document.getElementById('cpCurrent');
-const cpDuration = document.getElementById('cpDuration');
-const cpVol = document.getElementById('cpVol');
-const cpVolBtn = document.getElementById('cpVolBtn');
+// ===== ПЛЕЕР С ПЛЕЙЛИСТОМ =====
+const playlist = [
+  { title: 'We the Real Ones', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20We%20the%20Real%20Ones.flac' },
+  { title: 'The Signal Never Dies', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20The%20Signal%20Never%20Dies.flac' },
+  { title: 'Omrinnn', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Omrinnn.flac' },
+  { title: 'The Old Code', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20The%20Old%20Code.flac' },
+  { title: 'Dans le sang', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Dans%20le%20sang.flac' },
+  { title: 'Le Signal est Vivant', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Le%20Signal%20est%20Vivant.flac' },
+  { title: "We Don't Sleep", url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20We%20Don%27t%20Sleep.flac' }
+];
 
-function cpFormatTime(sec) {
+const audio = document.getElementById('cpAudio');
+const playBtn = document.getElementById('cpPlay');
+const prevBtn = document.getElementById('cpPrev');
+const nextBtn = document.getElementById('cpNext');
+const titleEl = document.getElementById('cpTitle');
+const currentEl = document.getElementById('cpCurrent');
+const durationEl = document.getElementById('cpDuration');
+const progressEl = document.getElementById('cpProgress');
+const fillEl = document.getElementById('cpFill');
+const thumbEl = document.getElementById('cpThumb');
+const volSlider = document.getElementById('cpVol');
+const volBtn = document.getElementById('cpVolBtn');
+
+let currentTrack = 0;
+
+function loadTrack(index) {
+  if (index < 0) index = playlist.length - 1;
+  if (index >= playlist.length) index = 0;
+  currentTrack = index;
+  audio.src = playlist[index].url;
+  titleEl.textContent = playlist[index].title;
+  audio.load();
+}
+
+function formatTime(sec) {
   if (isNaN(sec)) return '0:00';
   const m = Math.floor(sec / 60);
   const s = Math.floor(sec % 60);
   return m + ':' + String(s).padStart(2, '0');
 }
 
-if (cpAudio && cpPlay) {
-  cpPlay.addEventListener('click', () => {
-    if (cpAudio.paused) {
-      cpAudio.play();
+if (audio && playBtn) {
+  loadTrack(0);
+
+  playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+      audio.play();
     } else {
-      cpAudio.pause();
+      audio.pause();
     }
   });
 
-  cpAudio.addEventListener('play', () => cpPlay.classList.add('playing'));
-  cpAudio.addEventListener('pause', () => cpPlay.classList.remove('playing'));
+  audio.addEventListener('play', () => playBtn.classList.add('playing'));
+  audio.addEventListener('pause', () => playBtn.classList.remove('playing'));
 
-  cpAudio.addEventListener('loadedmetadata', () => {
-    cpDuration.textContent = cpFormatTime(cpAudio.duration);
+  audio.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = formatTime(audio.duration);
   });
 
-  cpAudio.addEventListener('timeupdate', () => {
-    if (!cpAudio.duration) return;
-    const pct = (cpAudio.currentTime / cpAudio.duration) * 100;
-    cpFill.style.width = pct + '%';
-    cpThumb.style.left = pct + '%';
-    cpCurrent.textContent = cpFormatTime(cpAudio.currentTime);
+  audio.addEventListener('timeupdate', () => {
+    const percent = (audio.currentTime / audio.duration) * 100 || 0;
+    fillEl.style.width = percent + '%';
+    thumbEl.style.left = percent + '%';
+    currentEl.textContent = formatTime(audio.currentTime);
   });
 
-  let seeking = false;
-
-  function seekFromEvent(e) {
-    const rect = cpProgress.getBoundingClientRect();
-    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-    let pct = (clientX - rect.left) / rect.width;
-    pct = Math.max(0, Math.min(1, pct));
-    cpAudio.currentTime = pct * cpAudio.duration;
-  }
-
-  cpProgress.addEventListener('mousedown', (e) => {
-    seeking = true;
-    seekFromEvent(e);
-  });
-  document.addEventListener('mousemove', (e) => {
-    if (seeking) seekFromEvent(e);
-  });
-  document.addEventListener('mouseup', () => seeking = false);
-
-  cpProgress.addEventListener('touchstart', (e) => {
-    seeking = true;
-    seekFromEvent(e);
-  }, { passive: true });
-  document.addEventListener('touchmove', (e) => {
-    if (seeking) seekFromEvent(e);
-  }, { passive: true });
-  document.addEventListener('touchend', () => seeking = false);
-
-  cpVol.addEventListener('input', () => {
-    cpAudio.volume = cpVol.value;
-    cpVolBtn.classList.toggle('muted', cpAudio.volume == 0);
+  audio.addEventListener('ended', () => {
+    loadTrack(currentTrack + 1);
+    audio.play();
   });
 
-  let lastVol = 1;
-  cpVolBtn.addEventListener('click', () => {
-    if (cpAudio.volume > 0) {
-      lastVol = cpAudio.volume;
-      cpAudio.volume = 0;
-      cpVol.value = 0;
-      cpVolBtn.classList.add('muted');
+  progressEl.addEventListener('click', (e) => {
+    const rect = progressEl.getBoundingClientRect();
+    const percent = (e.clientX - rect.left) / rect.width;
+    audio.currentTime = percent * audio.duration;
+  });
+
+  prevBtn.addEventListener('click', () => {
+    loadTrack(currentTrack - 1);
+    audio.play();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    loadTrack(currentTrack + 1);
+    audio.play();
+  });
+
+  volSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+  });
+
+  volBtn.addEventListener('click', () => {
+    if (audio.volume > 0) {
+      audio.volume = 0;
+      volSlider.value = 0;
     } else {
-      cpAudio.volume = lastVol || 1;
-      cpVol.value = cpAudio.volume;
-      cpVolBtn.classList.remove('muted');
+      audio.volume = 1;
+      volSlider.value = 1;
     }
   });
 }
