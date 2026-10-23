@@ -1,5 +1,5 @@
 // ===== ТАЙМЕР =====
-const targetDate = new Date('2026-10-24T21:00:00').getTime();
+const targetDate = new Date('2026-10-24T13:00:00+03:00').getTime();
 
 function updateTimer() {
   const timerEl = document.getElementById('timer');
@@ -9,7 +9,24 @@ function updateTimer() {
   const diff = targetDate - now;
 
   if (diff < 0) {
-    timerEl.innerHTML = '<p style="font-size:22px;">Стрим уже начался! 🎮</p>';
+    // Когда время вышло — меняем Hero
+    timerEl.style.display = 'none'; // Скрываем таймер
+    timerEl.innerHTML = ''; 
+
+    const title = document.getElementById('heroTitle');
+    const sub = document.getElementById('heroSub');
+    const btn = document.getElementById('heroMainBtn');
+
+    if (title) title.textContent = 'В ЭФИРЕ!';
+    if (sub) sub.textContent = 'Мы вернулись. Включай стрим!';
+    
+    if (btn) {
+      btn.textContent = 'Смотреть стрим';
+      btn.href = 'live.html';
+      // Делаем кнопку чуть более "живой" для стрима
+      btn.style.background = 'linear-gradient(135deg, #ef4444, #b91c1c)'; // Красная для эфира
+      btn.style.boxShadow = '0 0 40px rgba(239,68,68,0.8)';
+    }
     return;
   }
 
@@ -31,15 +48,16 @@ function updateTimer() {
 setInterval(updateTimer, 1000);
 updateTimer();
 
-// ===== TWITCH API =====
+// ===== TWITCH API (счётчик + статус) =====
 const API_URL = 'https://imgames-api.vercel.app/api/followers';
-const FALLBACK_FOLLOWERS = 12408;
+const FALLBACK_FOLLOWERS = 12406;
 
 async function updateTwitchStatus() {
   try {
     const response = await fetch(API_URL);
     if (!response.ok) throw new Error('API error');
     const data = await response.json();
+    
     updateStatusUI(data.followers, data.isLive);
   } catch (error) {
     updateStatusUI(FALLBACK_FOLLOWERS, false);
@@ -51,115 +69,147 @@ function updateStatusUI(followers, isLive) {
   const text = document.getElementById('statusText');
   const count = document.getElementById('followersCount');
   
-  if (dot) dot.className = 'status-dot ' + (isLive ? 'online' : 'offline');
-  if (text) text.textContent = isLive ? 'В ЭФИРЕ' : 'ОФФЛАЙН';
-  if (count) count.textContent = followers.toLocaleString('ru-RU');
+  if (dot) {
+    dot.className = 'status-dot ' + (isLive ? 'online' : 'offline');
+  }
+  if (text) {
+    text.textContent = isLive ? 'В ЭФИРЕ' : 'ОФФЛАЙН';
+  }
+  if (count) {
+    count.textContent = followers.toLocaleString('ru-RU');
+  }
 }
 
 updateTwitchStatus();
 setInterval(updateTwitchStatus, 60000);
 
-// ===== ПЛЕЕР С ПЛЕЙЛИСТОМ =====
+// ===== КАСТОМНЫЙ АУДИО-ПЛЕЕР =====
+const cpAudio = document.getElementById('cpAudio');
+const cpPlay = document.getElementById('cpPlay');
+const cpProgress = document.getElementById('cpProgress');
+const cpFill = document.getElementById('cpFill');
+const cpThumb = document.getElementById('cpThumb');
+const cpCurrent = document.getElementById('cpCurrent');
+const cpDuration = document.getElementById('cpDuration');
+const cpVol = document.getElementById('cpVol');
+const cpVolBtn = document.getElementById('cpVolBtn');
+
+// Твой плейлист (если у тебя он задан в script.js, просто оставь его)
+// Я оставил заглушку, если ты уже добавил реальные ссылки, они должны быть здесь.
 const playlist = [
-  { title: 'We the Real Ones', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20We%20the%20Real%20Ones.flac' },
-  { title: 'The Signal Never Dies', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20The%20Signal%20Never%20Dies.flac' },
-  { title: 'Omrinnn', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Omrinnn.flac' },
-  { title: 'The Old Code', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20The%20Old%20Code.flac' },
-  { title: 'Dans le sang', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Dans%20le%20sang.flac' },
-  { title: 'Le Signal est Vivant', url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20Le%20Signal%20est%20Vivant.flac' },
-  { title: "We Don't Sleep", url: 'https://github.com/VityaMoroz/theIMGames/raw/refs/heads/main/theIMGames%20-%20We%20Don%27t%20Sleep.flac' }
+  'https://raw.githubusercontent.com/VityaMoroz/theIMGames/main/the%20IMGames%20-%20We%20the%20Real%20Ones.mp3'
 ];
-
-const audio = document.getElementById('cpAudio');
-const playBtn = document.getElementById('cpPlay');
-const prevBtn = document.getElementById('cpPrev');
-const nextBtn = document.getElementById('cpNext');
-const titleEl = document.getElementById('cpTitle');
-const currentEl = document.getElementById('cpCurrent');
-const durationEl = document.getElementById('cpDuration');
-const progressEl = document.getElementById('cpProgress');
-const fillEl = document.getElementById('cpFill');
-const thumbEl = document.getElementById('cpThumb');
-const volSlider = document.getElementById('cpVol');
-const volBtn = document.getElementById('cpVolBtn');
-
 let currentTrack = 0;
 
 function loadTrack(index) {
-  if (index < 0) index = playlist.length - 1;
-  if (index >= playlist.length) index = 0;
-  currentTrack = index;
-  audio.src = playlist[index].url;
-  titleEl.textContent = playlist[index].title;
-  audio.load();
+  if (!cpAudio || !playlist[index]) return;
+  cpAudio.src = playlist[index];
+  cpAudio.load();
+  const titleEl = document.getElementById('cpTitle');
+  if (titleEl) titleEl.textContent = 'We the Real Ones'; // Или бери из массива объектов
 }
 
-function formatTime(sec) {
+if (cpAudio) {
+  // Если плейлист не пустой, грузим первый трек
+  if (playlist.length > 0) loadTrack(0);
+
+  if (cpPlay) {
+    cpPlay.addEventListener('click', () => {
+      if (cpAudio.paused) {
+        cpAudio.play();
+      } else {
+        cpAudio.pause();
+      }
+    });
+  }
+
+  cpAudio.addEventListener('play', () => cpPlay.classList.add('playing'));
+  cpAudio.addEventListener('pause', () => cpPlay.classList.remove('playing'));
+
+  cpAudio.addEventListener('loadedmetadata', () => {
+    cpDuration.textContent = cpFormatTime(cpAudio.duration);
+  });
+
+  cpAudio.addEventListener('timeupdate', () => {
+    if (!cpAudio.duration) return;
+    const pct = (cpAudio.currentTime / cpAudio.duration) * 100;
+    cpFill.style.width = pct + '%';
+    cpThumb.style.left = pct + '%';
+    cpCurrent.textContent = cpFormatTime(cpAudio.currentTime);
+  });
+
+  let seeking = false;
+
+  function seekFromEvent(e) {
+    const rect = cpProgress.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    let pct = (clientX - rect.left) / rect.width;
+    pct = Math.max(0, Math.min(1, pct));
+    cpAudio.currentTime = pct * cpAudio.duration;
+  }
+
+  cpProgress.addEventListener('mousedown', (e) => {
+    seeking = true;
+    seekFromEvent(e);
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (seeking) seekFromEvent(e);
+  });
+  document.addEventListener('mouseup', () => seeking = false);
+
+  cpProgress.addEventListener('touchstart', (e) => {
+    seeking = true;
+    seekFromEvent(e);
+  }, { passive: true });
+  document.addEventListener('touchmove', (e) => {
+    if (seeking) seekFromEvent(e);
+  }, { passive: true });
+  document.addEventListener('touchend', () => seeking = false);
+
+  cpVol.addEventListener('input', () => {
+    cpAudio.volume = cpVol.value;
+    cpVolBtn.classList.toggle('muted', cpAudio.volume == 0);
+  });
+
+  let lastVol = 1;
+  cpVolBtn.addEventListener('click', () => {
+    if (cpAudio.volume > 0) {
+      lastVol = cpAudio.volume;
+      cpAudio.volume = 0;
+      cpVol.value = 0;
+      cpVolBtn.classList.add('muted');
+    } else {
+      cpAudio.volume = lastVol || 1;
+      cpVol.value = cpAudio.volume;
+      cpVolBtn.classList.remove('muted');
+    }
+  });
+
+  // Кнопки переключения треков (если у тебя в плейлисте больше 1 трека)
+  const cpNext = document.getElementById('cpNext');
+  const cpPrev = document.getElementById('cpPrev');
+  
+  if (cpNext) {
+    cpNext.addEventListener('click', () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      loadTrack(currentTrack);
+      cpAudio.play();
+    });
+  }
+  if (cpPrev) {
+    cpPrev.addEventListener('click', () => {
+      currentTrack = (currentTrack - 1 + playlist.length) % playlist.length;
+      loadTrack(currentTrack);
+      cpAudio.play();
+    });
+  }
+}
+
+function cpFormatTime(sec) {
   if (isNaN(sec)) return '0:00';
   const m = Math.floor(sec / 60);
   const s = Math.floor(sec % 60);
   return m + ':' + String(s).padStart(2, '0');
-}
-
-if (audio && playBtn) {
-  loadTrack(0);
-
-  playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
-
-  audio.addEventListener('play', () => playBtn.classList.add('playing'));
-  audio.addEventListener('pause', () => playBtn.classList.remove('playing'));
-
-  audio.addEventListener('loadedmetadata', () => {
-    durationEl.textContent = formatTime(audio.duration);
-  });
-
-  audio.addEventListener('timeupdate', () => {
-    const percent = (audio.currentTime / audio.duration) * 100 || 0;
-    fillEl.style.width = percent + '%';
-    thumbEl.style.left = percent + '%';
-    currentEl.textContent = formatTime(audio.currentTime);
-  });
-
-  audio.addEventListener('ended', () => {
-    loadTrack(currentTrack + 1);
-    audio.play();
-  });
-
-  progressEl.addEventListener('click', (e) => {
-    const rect = progressEl.getBoundingClientRect();
-    const percent = (e.clientX - rect.left) / rect.width;
-    audio.currentTime = percent * audio.duration;
-  });
-
-  prevBtn.addEventListener('click', () => {
-    loadTrack(currentTrack - 1);
-    audio.play();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    loadTrack(currentTrack + 1);
-    audio.play();
-  });
-
-  volSlider.addEventListener('input', (e) => {
-    audio.volume = e.target.value;
-  });
-
-  volBtn.addEventListener('click', () => {
-    if (audio.volume > 0) {
-      audio.volume = 0;
-      volSlider.value = 0;
-    } else {
-      audio.volume = 1;
-      volSlider.value = 1;
-    }
-  });
 }
 
 // ===== СВОРАЧИВАЕМАЯ ГАЛЕРЕЯ =====
