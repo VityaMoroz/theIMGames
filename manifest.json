@@ -1,0 +1,20 @@
+{
+  "name": "IMGames — Перезагрузка",
+  "short_name": "IMGames",
+  "icons": [
+    {
+      "src": "https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/theIMGames/",
+  "display": "standalone",
+  "background_color": "#0a0a0f",
+  "theme_color": "#a855f7"
+}
