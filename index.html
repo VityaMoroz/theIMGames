@@ -16,7 +16,7 @@
     <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/МойЛОГО.png" alt="IMGames" class="logo-icon">
     <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/ChatGPT%20Image%209%20сент.%202026%20г.%2C%2014_08_56.png" alt="the IMGames" class="logo-text">
   </div>
-  
+
   <div class="header-status" id="headerStatus">
     <span class="status-dot offline" id="statusDot"></span>
     <span class="status-text" id="statusText">ОФФЛАЙН</span>
@@ -24,7 +24,7 @@
     <span class="followers-icon">👥</span>
     <span class="followers-count" id="followersCount">12 408</span>
   </div>
-  
+
   <nav class="nav">
     <a href="#hero">Главная</a>
     <a href="#poll">Опрос</a>
@@ -35,7 +35,6 @@
   </nav>
 </header>
 
-<!-- ЧЁРНАЯ ПОЛОСА ПОД ШАПКОЙ -->
 <div class="header-spacer"></div>
 
 <section id="hero" class="hero">
@@ -44,8 +43,9 @@
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Военный.png" alt="" class="decor decor-hero-left">
   <img src="https://raw.githubusercontent.com/VityaMoroz/theIMGamesBOT/main/Злодей.png" alt="" class="decor decor-hero-right">
   <div class="hero-content">
-    <h1>ПЕРЕЗАГРУЗКА</h1>
-    <p class="hero-sub">Два друга. Один канал. Скоро.</p>
+    <h1 id="heroTitle">ПЕРЕЗАГРУЗКА</h1>
+    <p class="hero-sub" id="heroSub">Два друга. Один канал. Скоро.</p>
+    
     <div class="timer" id="timer">
       <div class="timer-block"><span id="days">00</span><small>дней</small></div>
       <div class="timer-block"><span id="hours">00</span><small>часов</small></div>
@@ -53,7 +53,6 @@
       <div class="timer-block"><span id="seconds">00</span><small>секунд</small></div>
     </div>
 
-    <!-- ПЛЕЕР С ПЛЕЙЛИСТОМ -->
     <div class="hero-track">
       <div class="custom-player" id="audioPlayer">
         <button class="cp-play" id="cpPlay" aria-label="Play">
@@ -97,7 +96,7 @@
       </div>
     </div>
 
-    <a href="#poll" class="btn">Голосуй за первый стрим</a>
+    <a href="#poll" class="btn" id="heroMainBtn">Голосуй за первый стрим</a>
   </div>
 </section>
 
